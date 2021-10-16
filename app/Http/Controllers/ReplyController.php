@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Events\ReplyTicket;
+use App\Models\Ticket;
+use Illuminate\Http\Request;
+
+class ReplyController extends Controller
+{
+    //
+
+    public function __construct()
+    {
+        $this->middleware('auth:web,ticket_admin');
+    }
+
+    public function create(Ticket $ticket, Request $request)
+    {
+        $reply = auth()->user()->replies()->create([
+            'comment' => $request->text,
+            'ticket_id' => $ticket->id,
+        ]);
+        event(new ReplyTicket($reply,auth()->user()));
+        return back();
+    }
+
+}
