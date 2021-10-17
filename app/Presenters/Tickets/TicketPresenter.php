@@ -3,6 +3,7 @@
 namespace App\Presenters\Tickets;
 
 use App\Helper\Format\DateFormat;
+use App\Helper\Format\Number;
 use App\Presenters\Contracts\Presenter;
 
 class TicketPresenter extends Presenter
@@ -30,5 +31,10 @@ class TicketPresenter extends Presenter
 
         $shamsi = DateFormat::miladiToShamsi($date ,true);
         return $shamsi;
+    }
+
+    public function ticket_number()
+    {
+        return Number::PersianNumbers($this->entity->ticket_number);
     }
 }

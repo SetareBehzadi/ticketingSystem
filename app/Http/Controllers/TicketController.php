@@ -23,6 +23,7 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = auth()->user()->tickets;
+       /* dd($tickets);*/
         return view('tickets.tickets',compact('tickets'));
     }
 
@@ -47,9 +48,10 @@ class TicketController extends Controller
     public function storeTicket(Request $request)
     {
         $this->validateTicket($request);
+        $ticketNumber = $this->generateTicketNumber();
 
        $ticket =  auth()->user()->tickets()->create(
-            $request->all() + ['file_path' => $this->uploadFile($request)]
+            $request->all() + ['file_path' => $this->uploadFile($request) , 'ticket_number' => $ticketNumber]
         );
         return redirect()->back()->with('success','پیام شما با موفقیت ثبت شد.');
     }
@@ -70,5 +72,13 @@ class TicketController extends Controller
                     :null;
     }
 
+    private function generateTicketNumber(){
+       /* dd($this);*/
+        $ticketNumber = $this->ticket->lastRecord();
+
+        $number = ($ticketNumber)?$ticketNumber['ticket_number']+=1 :100;
+        return $number;
+
+        }
 
 }

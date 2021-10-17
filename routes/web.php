@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('login');
-});*/
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::group(['prefix'=>'ticket-admin'],function (){
     Route::get('register','TicketAdminController@showRegistrationForm')->name('admin.register.form');

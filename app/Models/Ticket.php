@@ -16,7 +16,7 @@ class Ticket extends Model
 
     protected $table = 'tickets';
     protected $fillable = [
-        'title','department_id','message','file_path','priority','status'
+        'ticket_number','title','department_id','message','file_path','priority','status'
     ];
 
     protected $attributes = [
@@ -85,5 +85,10 @@ class Ticket extends Model
     public function isClosed()
     {
         return $this->status == 2;
+    }
+
+    public function lastRecord()
+    {
+        return self::latest()->first();
     }
 }
