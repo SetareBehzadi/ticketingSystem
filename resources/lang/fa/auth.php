@@ -7,6 +7,7 @@ return [
     'email' => 'ایمیل',
     'enter your email' => 'ایمیل خود را وارد کنید ',
     'name' => 'نام',
+    'mobile' => 'موبایل',
     'enter your name' => 'نام خود را وارد کنید',
     'password' => 'کلمه عبور',
     'enter your password' => 'کلمه عبور خود را وارد کنید',

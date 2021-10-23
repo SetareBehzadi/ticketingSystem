@@ -9,8 +9,8 @@
     </button>
     <div class="auth-btn collapse justify-content-end navbar-collapse">
     @guest
-    <a class="btn btn-info  mr-2" href="/login"> ورود کاربر </a>
-    <a class="btn btn-info mr-2" href="/register"> ثبت نام کاربر</a>
+    <a class="btn btn-info  mr-2" href="{{route('auth.login.form')}}"> ورود کاربر </a>
+    <a class="btn btn-info mr-2" href="{{route('auth.register.form')}}"> ثبت نام کاربر</a>
     <a class="btn btn-info  mr-2" href="{{route('admin.login.form')}}"> ورود مدیر </a>
     <a class="btn btn-info mr-2" href="{{route('admin.register.form')}}"> ثبت نام مدیر </a>
     @endguest
@@ -23,13 +23,17 @@
         </a>
         <div class="dropdown-menu logout-btn" aria-labelledby="navbarDropdown">
 
-            <a onclick="event.preventDefault();document.getElementById('logout-form').submit()" class="dropdown-item" href="#">خروج</a>
+            {{--<a onclick="event.preventDefault();document.getElementById('logout-form').submit()" class="dropdown-item" href="#">خروج</a>--}}
+            <a  class="dropdown-item" href="{{ url('auth/logout')}}">خروج</a>
         </div>
-        <form id="logout-form" action="/logout" method="POST" style="display: none;">
+       {{-- <form id="logout-form" action="/auth/logout" method="POST" style="display: none;">
             @csrf
-        </form>
+        </form>--}}
         </li>
     </ul>
+            <a class="btn btn-info  mr-2" href="{{route('auth.login.form')}}">  </a>
+            <a class="btn btn-info mr-2" href="{{route('auth.register.form')}}"> ثبت نام کاربر</a>
+
     @endauth
     </div>
 </nav>

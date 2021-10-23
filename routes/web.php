@@ -1,5 +1,7 @@
 <?php
 
+use App\Jobs\sendEmail;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,29 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/sss', function () {
+    /*$notification  = resolve(\App\Services\Notifications\Notification::class);*/
+    // sendEmail::dispatch(User::find(1),new \App\Mail\UserRegister );
+ //$notification->sendTelegram(User::find(1),new \App\Mail\UserRegister );
+   /* $notification->sendSms(User::find(1),'hello');*/
+});
+
+
+
+Route::group(['prefix'=>'auth','namespace'=>'Auth'],function (){
+    Route::get('register','RegisterController@showRegistrationForm')->name('auth.register.form');
+    Route::post('register','RegisterController@register')->name('auth.register');
+    Route::get('login','LoginController@showLoginForm')->name('auth.login.form');
+    Route::post('login','LoginController@login')->name('auth.login');
+    Route::get('logout','LoginController@logout')->name('auth.logout');
+});
+/*Route::get('/auth/logout','Auth\LoginController@logout')->name('auth.logout');*/
+/*Route::get('logout', function () {
+    Auth::logout();
+})->name('logout');*/
+
+
+
 Route::group(['prefix'=>'ticket-admin'],function (){
     Route::get('register','TicketAdminController@showRegistrationForm')->name('admin.register.form');
     Route::post('register','TicketAdminController@register')->name('admin.register');
@@ -26,7 +51,7 @@ Route::group(['prefix'=>'ticket-admin'],function (){
     Route::post('login','TicketAdminController@login')->name('admin.login');
 });
 
-Auth::routes();
+/*Auth::routes();*/
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix'=>'tickets'],function (){

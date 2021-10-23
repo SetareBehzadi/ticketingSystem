@@ -20,8 +20,8 @@ class TicketAdminController extends Controller
    // protected $ticketAdmin;
     public function __construct(Department $department)
     {
-        $this->middleware('guest:web');
-        $this->middleware('guest:ticket_admin');
+        $this->middleware('guest:web'); //user adi
+        $this->middleware('guest:ticket_admin'); //admin bashe
         $this->department = $department;
       //  $this->ticketAdmin = $ticketAdmin;
     }

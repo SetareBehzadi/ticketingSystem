@@ -9,7 +9,7 @@
                 @lang('auth.register user')
             </div>
             <div class="card-body">
-                <form method="POST" action="/register">
+                <form method="POST" action="{{route('auth.register')}}">
                     @csrf
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="email">@lang('auth.email')</label>
@@ -37,6 +37,13 @@
                         <div class="col-sm-9">
                             <input  type="password" name="password_confirmation" class="form-control"
                             id="password_confirmation" placeholder="@lang('auth.confirm your password')">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="phone_number">@lang('auth.mobile')</label>
+                        <div class="col-sm-9">
+                            <input  type="password" name="phone_number" class="form-control"
+                            id="phone_number" placeholder="@lang('auth.mobile')">
                         </div>
                     </div>
                     <div class="offset-sm-3">

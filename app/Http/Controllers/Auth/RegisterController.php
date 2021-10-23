@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -21,7 +23,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+   // use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -40,6 +42,19 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validatorForm($request);
+       $user = $this->create($request->all());
+        Auth::login($user);
+        return redirect()->route('home')->with('registered',true);
+    }
+/*
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -47,7 +62,18 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+    }*/
+
+        protected function validatorForm(Request $request)
+    {
+        return $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone_number' => ['nullable', 'digits:11','numeric'],
+        ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -61,6 +87,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone_number' =>$data['phone_number'],
         ]);
     }
 }
