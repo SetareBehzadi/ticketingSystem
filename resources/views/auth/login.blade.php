@@ -29,12 +29,15 @@
                                 placeholder="@lang('auth.enter your password')">
                         </div>
                     </div>
-                  {{--  <div class="form-group row">
+                    <div class="form-group row">
                         <div class="form-check offset-sm-3">
                             <input type="checkbox" class="form-check-input" name="remember" id="remember">
                             <label class="form-check-label" for="remember"><small>@lang('auth.remember me')</small></label>
                         </div>
-                    </div>--}}
+                        <div class="form-check">
+                            <a href="{{route('auth.password.forget.form')}}"><small>@lang('auth.forget your password?')</small></a>
+                        </div>
+                    </div>
                     <div class="offset-sm-3">
                         @if ($errors->any())
                         <ul>

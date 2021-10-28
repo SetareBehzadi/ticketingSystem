@@ -15,7 +15,15 @@
         <!-- Nav Menu -->
         @include('partials.navbar')
         @if(session('mustVerifyEmail'))
-            @lang('auth.you must verify your email')
+            <div class="alert alert-danger text-center">
+                @lang('auth.you must verify your email' , ['link'=>route('auth.email.send.verification')])
+            </div>
+        @endif
+
+            @if(session('verificationEmailSent'))
+            <div class="alert alert-success text-center">
+                @lang('auth.verification email sent' )
+            </div>
         @endif
         <div class="container">
             @yield('content')

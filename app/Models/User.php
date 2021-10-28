@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Jobs\sendEmail;
+use App\Mail\ResetPassword;
+use App\Mail\VerificationEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone_number'
+        'phone_number',
+        'address'
     ];
 
     /**
@@ -55,5 +59,16 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this instanceof TicketAdmin;
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+      /*  dd('sss');*/
+            sendEmail::dispatch($this , new VerificationEmail($this));
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+            SendEmail::dispatch($this,new ResetPassword($this,$token));
     }
 }

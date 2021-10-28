@@ -19,4 +19,9 @@ class Number
 
         return str_replace($fa_num,$en_num,$input);
     }
+
+    public static function PersianNumberFormat($input)
+    {
+       return self::PersianNumbers(number_format($input));
+    }
 }

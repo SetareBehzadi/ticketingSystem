@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegister;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -52,7 +53,11 @@ class RegisterController extends Controller
         $this->validatorForm($request);
        $user = $this->create($request->all());
         Auth::login($user);
-        return redirect()->route('home')->with('registered',true);
+
+       //  $user->sendEmailVerificationNotification();
+        event(new UserRegister($user));
+
+       return redirect()->route('home')->with('registered',true);
     }
 /*
     protected function validator(array $data)
@@ -89,5 +94,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'phone_number' =>$data['phone_number'],
         ]);
+
+
     }
 }

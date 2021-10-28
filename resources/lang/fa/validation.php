@@ -32,9 +32,9 @@ return [
         'password' => 'کلمه عبور',
         'token' => 'توکن',
         'code' => 'کد',
-	'persian_name' => 'نام فارسی',
-	'method' => 'روش پرداخت',
-	'gateway' => 'درگاه پرداخت'
+        'persian_name' => 'نام فارسی',
+        'method' => 'روش پرداخت',
+        'gateway' => 'درگاه پرداخت'
 
     ]
 ];
