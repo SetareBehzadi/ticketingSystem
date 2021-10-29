@@ -13,4 +13,6 @@ interface ProductRepositoryInterface extends RepositoryInterface
 
     public function findProductsByArrayOfData(string $column,array $data);
 
+    public function decrementStock(int $productId,int $quantity);
+
 }

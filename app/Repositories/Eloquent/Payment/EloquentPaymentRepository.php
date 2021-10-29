@@ -12,4 +12,10 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     protected $model = Payment::class;
 
 
+    public function isOnline($paymentId)
+    {
+        $query = $this->findBy(['id'=>$paymentId,'payment_method'=>'online']);
+
+        return $query;
+    }
 }

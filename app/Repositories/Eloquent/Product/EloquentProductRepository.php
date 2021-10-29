@@ -27,4 +27,10 @@ class EloquentProductRepository extends EloquentBaseRepository implements Produc
        return $query-> whereIn($column, $data)->get();
 
     }
+
+    public function decrementStock(int $productId,int $quantity)
+    {
+        $query = $this->model::query();
+       return $query->where('id',$productId)->decrement('stock', $quantity);
+    }
 }

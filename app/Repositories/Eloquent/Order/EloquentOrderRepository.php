@@ -13,4 +13,9 @@ class EloquentOrderRepository extends EloquentBaseRepository implements OrderRep
     protected $model = Order::class;
 
 
+    public function getOrderByResNumber($resNumber)
+    {
+        $query = $this->model::query();
+       return $query->where('code', $resNumber)->firstOrFail();
+    }
 }

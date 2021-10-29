@@ -24,6 +24,7 @@ Route::group(['namespace'=>'FrontEnd' , 'as'=>'web.'],function (){
     Route::post('/basket/update/{product}','BasketController@update')->name('basket.update');
     Route::get('/basket/checkout','BasketController@checkoutForm')->name('basket.checkout.form');
     Route::post('basket/checkout', 'BasketController@checkout')->name('basket.checkout');
+    Route::post('payment/{gateway}/callback', 'PaymentController@verify')->name('payment.verify');
 
 
 

@@ -55,10 +55,16 @@ class BasketController extends Controller
 
     public function checkout(Request $request)
     {
-        $this->validateForm($request);
-       $order = $this->transactionService->checkout();
+        /*try {*/
+            $this->validateForm($request);
 
-       return redirect()->route('web.basket.index')->with('success',__('payment.your order has been registered',['orderNum' => $order->id]));
+            $order = $this->transactionService->checkout();
+
+            return redirect()->route('web.basket.index')->with('success',__('payment.your order has been registered',['orderNum' => $order->id]));
+     /*   }catch (\Exception $e){
+            echo $e;
+        }*/
+
     }
 
     private function validateForm($request)
