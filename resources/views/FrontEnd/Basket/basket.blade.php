@@ -10,7 +10,7 @@
 
 	@if ($items->isEmpty())
 	<p>
-		@lang('payment.empty basket' , ['link' => route('web.products.index')])
+		@lang('payment.empty basket' , ['link' => route('home')])
 	</p>
 
 	@else

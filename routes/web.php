@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace'=>'FrontEnd' , 'as'=>'web.'],function (){
-    Route::get('/','ProductsController@index')->name('products.index');
+Route::group(['namespace'=>'FrontEnd'],function (){
+    Route::get('/','ProductsController@index')->name('home');
+   Route::group(['as'=>'web.'],function(){
     Route::get('/basket','BasketController@index')->name('basket.index');
     Route::get('/basket/add/{product}','BasketController@add')->name('basket.add');
     Route::post('/basket/update/{product}','BasketController@update')->name('basket.update');
@@ -32,6 +33,12 @@ Route::group(['namespace'=>'FrontEnd' , 'as'=>'web.'],function (){
         $session =resolve(StorageInterface::class);
         $session->clear();
     });
+});
+    Route::post('coupon','CouponController@store')->name('coupons.store');
+    Route::get('coupon/remove','CouponController@remove')->name('coupons.remove');
+
+  
+    
 });
 
 
@@ -73,7 +80,7 @@ Route::group(['prefix'=>'ticket-admin'],function (){
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+
 Route::group(['prefix'=>'tickets'],function (){
     Route::get('/', 'TicketController@index')->name('ticket.index');
     Route::get('new', 'TicketController@newTicket')->name('ticket.new');

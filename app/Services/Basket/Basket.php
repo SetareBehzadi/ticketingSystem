@@ -26,7 +26,7 @@ class Basket
     {
         if ($this->has($product)){
             $quantity = $this->get($product)['quantity'] + $quantity;
-        }
+        } 
         $this->update($product,$quantity);
 
     }

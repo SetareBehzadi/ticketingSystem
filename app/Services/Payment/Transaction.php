@@ -9,6 +9,7 @@ use App\Repositories\Eloquent\Order\OrderRepositoryInterface;
 use App\Repositories\Eloquent\Payment\PaymentRepositoryInterface;
 use App\Repositories\Eloquent\Product\ProductRepositoryInterface;
 use App\Services\Basket\Basket;
+use App\Services\Cost\Contract\CostInterface;
 use App\Services\Payment\Gateways\Contracts\GatewayFactoryInterface;
 use App\Services\Payment\Gateways\Pasargad;
 use App\Services\Payment\Gateways\Saman;
@@ -23,11 +24,13 @@ class Transaction
     /**
      * @param $request
      * @param $basket
+     * @param $cost
      */
-    public function __construct(Request $request,Basket $basket)
+    public function __construct(Request $request,Basket $basket, CostInterface $cost)
     {
         $this->request = $request;
         $this->basket = $basket;
+        $this->cost = $cost;
     }
 
     public function checkout()
@@ -49,7 +52,7 @@ class Transaction
       /*  dd(($paymentRepo->isOnline($payment->id))?1:0);*/
         if($paymentRepo->isOnline($payment->id) ) {
 
-           return $this->gatewayFactory()->pay($order);
+           return $this->gatewayFactory()->pay($order , $this->cost->getTotalCosts());
         }
 
         $this->completeOrder($order);
@@ -88,7 +91,7 @@ class Transaction
         $payment = $paymentRepo->store([
             'order_id' => $order->id,
             'payment_method' => $this->request['method'],
-            'amount' => $order->amount
+            'amount' => $this->cost->getTotalCosts()
 
         ]);
        return $payment;

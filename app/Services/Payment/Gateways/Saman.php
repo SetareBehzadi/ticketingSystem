@@ -23,16 +23,16 @@ class Saman implements GatewayFactoryInterface
     }
 
 
-    public function pay(Order $order)
+    public function pay(Order $order , $amount)
     {
 
-        $this->redirectToBank($order);
+        $this->redirectToBank($order , $amount);
     //    dd('end of payment');
     }
 
-    private function redirectToBank($order)
+    private function redirectToBank($order , $amount)
     {
-        $amount = $order->amount + 10000;
+        //$amount = $order->amount + 10000;
         echo "<form id='samanpeyment' action='https://sep.shaparak.ir/payment.aspx' method='post'>
 		<input type='hidden' name='Amount' value='{$amount}' />
 		<input type='hidden' name='ResNum' value='{$order->code}'>
@@ -48,15 +48,15 @@ class Saman implements GatewayFactoryInterface
              return $this->transactionFailed();
          }*/
 
-        $soapClient = new \SoapClient('https://acquirer.samanepay.com/payments/referencepayment.asmx?WSDL');
+     //   $soapClient = new \SoapClient('https://acquirer.samanepay.com/payments/referencepayment.asmx?WSDL');
 
-        $response = $soapClient->VerifyTransaction($request->input('RefNum'), $this->merchantId);
+       // $response = $soapClient->VerifyTransaction($request->input('RefNum'), $this->merchantId);
 
         $order = $this->getOrder($request->input('ResNum'));
-        $response = $order->amount + 10000;
+        $response = $order->payment->amount;
         $request->merge(['RefNum' => '45852525']);
 
-        return $response == ($order->amount + 10000)
+        return $response == ( $order->payment->amount)
             ? $this->transactionSuccess($order, $request->input('RefNum'))
             : $this->transactionFailed();
 

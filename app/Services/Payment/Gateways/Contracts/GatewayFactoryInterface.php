@@ -11,7 +11,7 @@ interface GatewayFactoryInterface
     const TRANSACTION_SUCCESS = 'transaction.success';
 
 
-    public function pay(Order $order);
+    public function pay(Order $order , $amount);
     public function verify(Request $request);
     public function getGatewayName(): string;
 }
