@@ -12,6 +12,11 @@ class Coupon extends Model
 
     public function IsExpired()
     {
-       return Carbon::now()->isAfter(Carbon::parse($this->exire_time));
+       return Carbon::now()->isAfter(Carbon::parse($this->expire_time));
+    }
+
+    public function CanUseIt()
+    {
+        return $
     }
 }
